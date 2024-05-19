@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  jupyterlab:
+    image: jupyter/datascience-notebook
+    container_name: jupyterlab
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - CHOWN_HOME=yes
+      - GRANT_SUDO=yes
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Criminal1234"
+      MYSQL_DATABASE: "CriminalDataDB"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "Criminal1234"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
